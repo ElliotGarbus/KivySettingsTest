@@ -46,14 +46,14 @@ json = '''
         "section": "My Label",
         "key": "font_size"
     },
-     {
+    {
         "type": "path",
         "title": "Here is the path input",
         "desc": "just a test",
         "section": "DEFAULT FILE PATH",
         "key": "path_1"
     },
-     {
+    {
         "type": "drivepath",
         "title": "Drive Path test",
         "desc": "Test the drive path chooser",
