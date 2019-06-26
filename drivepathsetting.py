@@ -73,7 +73,7 @@ class SettingDrivePath(SettingItem):
     # def __init__(self, **kwargs):
     #     super().__init__(**kwargs)
 
-    original = False   # If original is True, then use code from settingspath, else use my code.
+    original = True   # If original is True, then use code from settingspath, else use my code.
     if original:
         popup = ObjectProperty(None, allownone=True)
         textinput = ObjectProperty(None)

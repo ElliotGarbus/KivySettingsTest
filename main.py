@@ -46,6 +46,13 @@ json = '''
         "section": "My Label",
         "key": "font_size"
     },
+     {
+        "type": "bool",
+        "title": "Make a choice",
+        "desc": "just a test",
+        "section": "DEFAULT FILE PATH",
+        "key": "B0"
+    },
     {
         "type": "path",
         "title": "Here is the path input",
@@ -86,7 +93,7 @@ class MyApp(App):
         Set the default values for the configs sections.
         """
         config.setdefaults('My Label', {'text': 'Hello', 'font_size': 20})
-        config.setdefaults('DEFAULT FILE PATH', {'path_1': '.', 'path_2': '.'})
+        config.setdefaults('DEFAULT FILE PATH', {'B0': '0', 'path_1': '.', 'path_2': '.'})
 
     def build_settings(self, settings):
         """
