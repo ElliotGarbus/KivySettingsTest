@@ -48,8 +48,8 @@ json = '''
     },
      {
         "type": "bool",
-        "title": "Make a choice",
-        "desc": "just a test",
+        "title": "A Choice",
+        "desc": "A switch: On or Off",
         "section": "DEFAULT FILE PATH",
         "key": "B0"
     },
