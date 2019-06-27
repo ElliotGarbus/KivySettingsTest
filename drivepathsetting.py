@@ -56,6 +56,14 @@ KV = """
                     
 """
 
+setting_panel_kv = """
+<SettingDrivePath>:
+    Label:
+        text: root.value or ''
+        pos: root.pos
+        font_size: '15sp'
+"""
+Builder.load_string(setting_panel_kv)
 
 class DirectoryDialog(Popup):
     path = StringProperty()    # The path of the dir to view
@@ -73,7 +81,7 @@ class SettingDrivePath(SettingItem):
     # def __init__(self, **kwargs):
     #     super().__init__(**kwargs)
 
-    original = True   # If original is True, then use code from settingspath, else use my code.
+    original = False   # If original is True, then use code from settingspath, else use my code.
     if original:
         popup = ObjectProperty(None, allownone=True)
         textinput = ObjectProperty(None)
