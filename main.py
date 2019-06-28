@@ -1,10 +1,15 @@
 """
-Config Example
+This is an example of creating a custom setting item in a settings panel.
+This file is extended from the Config Example from the kivy-examples/settings
 ==============
 
 This file contains a simple example of how the use the Kivy settings classes in
 a real app. It allows the user to change the caption and font_size of the label
 and stores these changes.
+
+It has been extended to show how to integrate 2 custom panel items:
+drivepath: A dialog similar to path, but features a drive selection spinner
+drivepath_short: Similar to drivepath, but shortens long file paths in the settings panel
 
 When the user next runs the programs, their changes are restored.
 
@@ -55,8 +60,8 @@ json = '''
     },
     {
         "type": "path",
-        "title": "The default path input setting item",
-        "desc": "just a test",
+        "title": "The default path input",
+        "desc": "Select a path",
         "section": "DEFAULT FILE PATH",
         "key": "path_1"
     },
