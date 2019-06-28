@@ -1,15 +1,14 @@
-from kivy.uix.settings import SettingItem, SettingPath
+from kivy.uix.settings import SettingPath
 from kivy.uix.popup import Popup
-from kivy.properties import StringProperty, ObjectProperty, BooleanProperty
+from kivy.properties import StringProperty, ObjectProperty
 from kivy.lang import Builder
 import os
 
 KV = """
 #: import drivepath drivepath
 <DirectoryDialog>:
-    size_hint: None,.9
-    width: dp(500)
-    auto_dismiss: False
+    size_hint_x: None
+    width: '500dp'
     BoxLayout:
         orientation: 'vertical'
         FileChooserListView:
@@ -17,22 +16,27 @@ KV = """
             path: root.path
             dirselect: True
             filters: ['!*.']
+        SettingSpacer:
         BoxLayout:
-            size_hint_y: .1
+            size_hint_y: None
+            height: '50dp'
+            spacing: '5dp'
+            padding: [0, 0, 0, dp(2.5)] # [padding_left, padding_top, padding_right, padding_bottom]
             Spinner:
-                size_hint_x: 0.5
                 text:'Drive'
                 values: drivepath.get_drive_names()
                 on_text: fc.path = drivepath.get_path(self.text)
             Label:
-                size_hint_x: 0.5
                 text_size: self.size
                 halign: 'center'
                 valign: 'center'
                 shorten: True
                 text: 'Dir: ' + ('<None>' if not fc.selection else fc.selection[0])
         BoxLayout:
-            size_hint_y: .1
+            size_hint_y: None
+            height: '50dp'
+            spacing: '5dp'
+            padding: [0, dp(2.5), 0, 0 ] # [padding_left, padding_top, padding_right, padding_bottom]
             orientation: 'horizontal'
             Button:
                 text: 'Ok'
@@ -67,6 +71,10 @@ class DirectoryDialog(Popup):
 
 
 class SettingDrivePath(SettingPath):
+    """Implementation of DrivePath setting on top of a :class:`SettingPath`.
+    It extends SettingPath with a new popup, DirectoryDialog that allows the selection of a drive.
+    The filter selected in the popup will only show directories.
+    """
     def set_new_path(self, new_path):
         self.value = new_path
 
@@ -74,3 +82,5 @@ class SettingDrivePath(SettingPath):
         initial_path = self.value or os.getcwd()
         popup = DirectoryDialog(title=self.title, path=initial_path, action=self.set_new_path)
         popup.open()
+
+
