@@ -1,15 +1,7 @@
 from kivy.uix.settings import SettingItem, SettingPath
 from kivy.uix.popup import Popup
-from kivy.uix.boxlayout import BoxLayout
 from kivy.properties import StringProperty, ObjectProperty, BooleanProperty
-from kivy.uix.button import Button
-from kivy.uix.filechooser import FileChooserListView
-from kivy.metrics import dp
-
-
 from kivy.lang import Builder
-
-
 import os
 
 KV = """
@@ -44,16 +36,13 @@ KV = """
             orientation: 'horizontal'
             Button:
                 text: 'Ok'
-                disabled: 0==len( fc.selection )
-                on_release:
+                disabled: len(fc.selection) == 0
+                on_release: 
                     root.action(fc.selection[0])
-                    root.dismiss_action()
+                    root.dismiss()
             Button:
                 text: 'Cancel'
-                on_release: 
-                    root.dismiss_action()
-                    
-                    
+                on_release: root.dismiss() 
 """
 
 setting_panel_kv = """
@@ -64,37 +53,24 @@ setting_panel_kv = """
         font_size: '15sp'
 """
 # Builder.load_string(setting_panel_kv)
+Builder.load_string(KV)
 
 
 class DirectoryDialog(Popup):
     path = StringProperty()    # The path of the dir to view
     action = ObjectProperty()  # action to execute on ok
-    instance = ObjectProperty()
-    dismiss_action = ObjectProperty()  # call the _dismiss
 
     def __init__(self, **kwargs):
         self.path = kwargs['path']
         self.action = kwargs['action']
-        self.instance = kwargs['instance']
-        self.dismiss_action= kwargs['dismiss_action']
         super().__init__(**kwargs)
 
 
 class SettingDrivePath(SettingPath):
-
-    def _validate(self, instance):
-        pass
-
     def set_new_path(self, new_path):
-        self._dismiss()
         self.value = new_path
 
     def _create_popup(self, instance):
-        Builder.load_string(KV)
         initial_path = self.value or os.getcwd()
-        self.popup = popup = DirectoryDialog(title=self.title,
-                                             path=initial_path,
-                                             action=self.set_new_path,
-                                             dismiss_action=self._dismiss,
-                                             instance=instance)
+        popup = DirectoryDialog(title=self.title, path=initial_path, action=self.set_new_path)
         popup.open()
