@@ -66,6 +66,13 @@ json = '''
         "desc": "Test the drive path chooser",
         "section": "DEFAULT FILE PATH",
         "key": "path_2"
+    },
+    {
+        "type": "drivepath_short",
+        "title": "Drive Path short test",
+        "desc": "Test the drive path chooser, displays a short path",
+        "section": "DEFAULT FILE PATH",
+        "key": "path_3"
     }
 ]
 '''
@@ -93,7 +100,10 @@ class MyApp(App):
         Set the default values for the configs sections.
         """
         config.setdefaults('My Label', {'text': 'Hello', 'font_size': 20})
-        config.setdefaults('DEFAULT FILE PATH', {'B0': '0', 'path_1': '.', 'path_2': '.'})
+        config.setdefaults('DEFAULT FILE PATH', {'B0': '0',
+                                                 'path_1': '.',
+                                                 'path_2': '.',
+                                                 'path_3': '.'})
 
     def build_settings(self, settings):
         """
@@ -103,6 +113,7 @@ class MyApp(App):
         # loaded from a file as follows:
         #     settings.add_json_panel('My Label', self.config, 'settings.json')
         settings.register_type('drivepath', drivepathsetting.SettingDrivePath)
+        settings.register_type('drivepath_short', drivepathsetting.SettingDrivePathShort)
         settings.add_json_panel('My Label', self.config, data=json)
 
     def on_config_change(self, config, section, key, value):

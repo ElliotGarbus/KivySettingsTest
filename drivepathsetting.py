@@ -1,4 +1,4 @@
-from kivy.uix.settings import SettingPath
+from kivy.uix.settings import SettingPath, SettingItem
 from kivy.uix.popup import Popup
 from kivy.properties import StringProperty, ObjectProperty
 from kivy.lang import Builder
@@ -48,16 +48,20 @@ KV = """
                 text: 'Cancel'
                 on_release: root.dismiss() 
 """
+Builder.load_string(KV)
 
 setting_panel_kv = """
-<SettingDrivePath>:
+<SettingDrivePathShort>:
     Label:
         text: root.value or ''
         pos: root.pos
         font_size: '15sp'
+        text_size: self.size
+        halign: 'center'
+        valign: 'center'
+        shorten: True
 """
-# Builder.load_string(setting_panel_kv)
-Builder.load_string(KV)
+Builder.load_string(setting_panel_kv)
 
 
 class DirectoryDialog(Popup):
@@ -83,4 +87,24 @@ class SettingDrivePath(SettingPath):
         popup = DirectoryDialog(title=self.title, path=initial_path, action=self.set_new_path)
         popup.open()
 
+
+class SettingDrivePathShort(SettingItem):
+    """Implementation of DrivePath setting on top of a :class:`SettingItem`.
+    It extends SettingPath with a new popup, DirectoryDialog that allows the selection of a drive.
+    The filter selected in the popup will only show directories.
+    This class uses a KV string to change the display of the text on the settings panel.
+    This behavior is defined by the KV class <SettingDrivePathShort>, in the KV string defined earlier is this file.
+    """
+    def on_panel(self, instance, value):
+        if value is None:
+            return
+        self.fbind('on_release', self._create_popup)
+
+    def set_new_path(self, new_path):
+        self.value = new_path
+
+    def _create_popup(self, instance):
+        initial_path = self.value or os.getcwd()
+        popup = DirectoryDialog(title=self.title, path=initial_path, action=self.set_new_path)
+        popup.open()
 
