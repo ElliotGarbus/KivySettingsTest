@@ -55,7 +55,7 @@ json = '''
     },
     {
         "type": "path",
-        "title": "Here is the path input",
+        "title": "The default path input setting item",
         "desc": "just a test",
         "section": "DEFAULT FILE PATH",
         "key": "path_1"
@@ -63,13 +63,13 @@ json = '''
     {
         "type": "drivepath",
         "title": "Drive Path test",
-        "desc": "Test the drive path chooser",
+        "desc": "Extends path setting by supporting a drive",
         "section": "DEFAULT FILE PATH",
         "key": "path_2"
     },
     {
         "type": "drivepath_short",
-        "title": "Drive Path short test",
+        "title": "Drive Path Short test",
         "desc": "Test the drive path chooser, displays a short path",
         "section": "DEFAULT FILE PATH",
         "key": "path_3"
