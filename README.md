@@ -25,7 +25,7 @@ directly from SettingItem, KV code must be provided to format the data on the pa
 
 
 **drivepathsetting.py** This file defined the new setting items.
-* Note the KV code under '\<SettingDrivePathShort/>' is used to format the string in the settings panel.
+* Note the KV code under '\<SettingDrivePathShort>' is used to format the string in the settings panel.
 * This file demonstrates using KV code to create the dialogs for the setting items. 
 
 **drivepath.py** This is a utility for reading the disk drive names on a Windows System, there are also behaviors defined for MacOS and Linux.
